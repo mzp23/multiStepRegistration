@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import Buttons from '../../components/registration/buttons/Buttons';
-import FirstStep from '../../components/registration/firstStep/FirstStep';
+import FirstStep from './firstStep/FirstStep'
 import { selectStep } from './selectors';
 
 const Wrapper = styled.div`

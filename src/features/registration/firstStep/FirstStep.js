@@ -1,14 +1,14 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FIRST_STEP } from '../../../features/registration/constants';
-import { changeFieldValue } from '../../../features/registration/registrationSlice';
+import { FIRST_STEP } from '../constants';
+import { changeFieldValue } from '../registrationSlice';
 import {
   selectFirstStepData,
   selectStep,
-} from '../../../features/registration/selectors';
-import Input from '../input/Input';
-import RegistrationWrapper from '../registrationWrapper/RegistrationWrapper';
+} from '../selectors';
+import Input from '../../../components/registration/input/Input';
+import RegistrationWrapper from '../../../components/registration/registrationWrapper/RegistrationWrapper';
 import {
   invalidConfirmedPasswordMessage,
   invalidEmailMessage,
