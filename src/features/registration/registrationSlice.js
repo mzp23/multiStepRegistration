@@ -1,49 +1,100 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {
+  isValidEmail,
+  isValidFirstName,
+  isValidPassword,
+  isValidSecondName,
+  isValidConfirmedPassword,
+} from '../../helpers/validation';
+import { FIRST_STEP, LAST_STEP } from './constants';
+
+const initialState = {
+  firstName: {
+    value: '',
+    isValid: false,
+  },
+  secondName: {
+    value: '',
+    isValid: false,
+  },
+  password: {
+    value: '',
+    isValid: false,
+  },
+  confirmedPassword: {
+    value: '',
+    isValid: false,
+  },
+  age: {
+    value: 0,
+    isValid: false,
+  },
+  email: {
+    value: '',
+    isValid: false,
+  },
+  sex: {
+    value: '',
+    isValid: false,
+  },
+  dob: {
+    value: '',
+    isValid: false,
+  },
+  consentToProcessingData: {
+    value: false,
+    isValid: false,
+  },
+  registrationStep: 1,
+};
+
+const validationMap = {
+  firstName: isValidFirstName,
+  secondName: isValidSecondName,
+  email: isValidEmail,
+  password: isValidPassword,
+  confirmedPassword: isValidConfirmedPassword,
+};
 
 export const registrationSlice = createSlice({
   name: 'registration',
-  initialState: {
-    firstName: '',
-    secondName: '',
-    age: 0,
-    email: '',
-    sex: '',
-    dob: '',
-    consentToProcessingData: false,
-  },
+  initialState,
   reducers: {
-    changeFirstName: (state, action) => {
-      state.firstName = action.payload;
+    changeFieldValue: (state, { payload }) => {
+      state[payload.field].value = payload.value;
+
+      if (payload.field === 'confirmedPassword') {
+        state[payload.field].isValid = validationMap[payload.field](
+          payload.value,
+          state.password.value
+        );
+      } else {
+        state[payload.field].isValid = validationMap[payload.field](
+          payload.value
+        );
+      }
     },
-    changeSecondName: (state, action) => {
-      state.firstName = action.payload;
+    increaseStep: (state) => {
+      if (state.registrationStep >= LAST_STEP) {
+        state.registrationStep = LAST_STEP;
+      } else {
+        state.registrationStep = state.registrationStep + 1;
+      }
     },
-    changeAge: (state, action) => {
-      state.age = action.payload;
-    },
-    changeEmail: (state, action) => {
-      state.email = action.payload;
-    },
-    changeSex: (state, action) => {
-      state.sex = action.payload;
-    },
-    changeDob: (state, action) => {
-      state.dob = action.payload;
-    },
-    changeConsentToProcessingData: (state, action) => {
-      state.consentToProcessingData = action.payload;
+    decreaseStep: (state) => {
+      if (state.registrationStep <= FIRST_STEP) {
+        state.registrationStep = FIRST_STEP;
+      } else {
+        state.registrationStep = state.registrationStep - 1;
+      }
     },
   },
 });
 
 export const {
-  changeAge,
-  changeConsentToProcessingData,
-  changeDob,
-  changeEmail,
-  changeFirstName,
-  changeSecondName,
-  changeSex,
+  increaseStep,
+  decreaseStep,
+  changeFieldValue,
 } = registrationSlice.actions;
 
 export default registrationSlice.reducer;
