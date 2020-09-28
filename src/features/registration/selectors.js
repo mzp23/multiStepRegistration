@@ -12,16 +12,19 @@ export const selectConsentToProcessingData = ({ registration }) =>
   registration.consentToProcessingData;
 export const selectSex = ({ registration }) => registration.sex;
 export const selectStep = ({ registration }) => registration.registrationStep;
+export const selectZipCode = ({ registration }) => registration.zipCode;
 export const selectIsAllFilledOnFirstStep = createSelector(
   selectFirstName,
   selectSecondName,
   selectPassword,
   selectConfirmedPassword,
-  (firstName, secondName, password, confirmedPassword) =>
+  selectEmail,
+  (firstName, secondName, password, confirmedPassword, email) =>
     firstName.isValid &&
     secondName.isValid &&
     password.isValid &&
-    confirmedPassword.isValid
+    confirmedPassword.isValid &&
+    email.isValid
 );
 export const selectFirstStepData = createSelector(
   selectFirstName,
@@ -35,5 +38,21 @@ export const selectFirstStepData = createSelector(
     email,
     password,
     confirmedPassword,
+  })
+);
+export const selectIsAllFilledOnSecondStep = createSelector(
+  selectDob,
+  selectSex,
+  selectZipCode,
+  (dob, sex, zipCode) => dob.isValid && sex.isValid && zipCode.isValid
+);
+export const selectSecondStepData = createSelector(
+  selectDob,
+  selectSex,
+  selectZipCode,
+  (dob, sex, zipCode) => ({
+    dob,
+    sex,
+    zipCode,
   })
 );

@@ -1,24 +1,32 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
+import { Button } from 'rsuite';
 import {
   FIRST_STEP,
-  LAST_STEP
+  LAST_STEP,
+  SECOND_STEP,
 } from '../../../features/registration/constants';
 import { increaseStep } from '../../../features/registration/registrationSlice';
-import { selectIsAllFilledOnFirstStep } from '../../../features/registration/selectors';
+import {
+  selectIsAllFilledOnFirstStep,
+  selectIsAllFilledOnSecondStep,
+} from '../../../features/registration/selectors';
 
 const NextButton = ({ step }) => {
   const dispatch = useDispatch();
   const isAllFilledOnFirstPage = useSelector(selectIsAllFilledOnFirstStep);
+  const isAllFilledOnSecondPage = useSelector(selectIsAllFilledOnSecondStep);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
     if (step === FIRST_STEP) {
       setIsButtonDisabled(isAllFilledOnFirstPage);
+    } else if (step === SECOND_STEP) {
+      setIsButtonDisabled(isAllFilledOnSecondPage);
     }
-  }, [step, isAllFilledOnFirstPage]);
+  }, [step, isAllFilledOnFirstPage, isAllFilledOnSecondPage]);
 
   const handleNextStep = useCallback(() => {
     dispatch(increaseStep());
@@ -32,13 +40,14 @@ const NextButton = ({ step }) => {
   return (
     <>
       <span data-tip>
-        <button
+        <Button
+          style={{ margin: '0 5px' }}
           type={buttonType}
           onClick={handleNextStep}
           disabled={!isButtonDisabled}
         >
           {buttonTitle}
-        </button>
+        </Button>
       </span>
       {!isButtonDisabled && (
         <ReactTooltip place="bottom" type="error" effect="solid">

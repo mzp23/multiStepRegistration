@@ -3,12 +3,11 @@ import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 
 const CustomInput = styled.input`
-  padding: 15px 10px;
+  padding: 10px 5px;
   margin-bottom: 25px;
-  border: 1px solid #ccc;
+  border: 1px solid #e5e5ea;
   border-radius: 5px;
   outline: none;
-  font-size: 20px;
   &:focus {
     border-color: #000;
   }

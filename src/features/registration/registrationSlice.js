@@ -5,6 +5,9 @@ import {
   isValidPassword,
   isValidSecondName,
   isValidConfirmedPassword,
+  isValidZipCode,
+  isValidDob,
+  isValidSex,
 } from '../../helpers/validation';
 import { FIRST_STEP, LAST_STEP } from './constants';
 
@@ -25,8 +28,8 @@ const initialState = {
     value: '',
     isValid: false,
   },
-  age: {
-    value: 0,
+  zipCode: {
+    value: '',
     isValid: false,
   },
   email: {
@@ -38,14 +41,14 @@ const initialState = {
     isValid: false,
   },
   dob: {
-    value: '',
+    value: null,
     isValid: false,
   },
   consentToProcessingData: {
     value: false,
     isValid: false,
   },
-  registrationStep: 1,
+  registrationStep: 2,
 };
 
 const validationMap = {
@@ -54,6 +57,9 @@ const validationMap = {
   email: isValidEmail,
   password: isValidPassword,
   confirmedPassword: isValidConfirmedPassword,
+  zipCode: isValidZipCode,
+  dob: isValidDob,
+  sex: isValidSex,
 };
 
 export const registrationSlice = createSlice({

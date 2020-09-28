@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import Buttons from '../../components/registration/buttons/Buttons';
-import FirstStep from './firstStep/FirstStep'
+import { LAST_STEP } from './constants';
+import FirstStep from './firstStep/FirstStep';
+import SecondStep from './secondStep/SecondStep';
 import { selectStep } from './selectors';
 
 const Wrapper = styled.div`
@@ -17,16 +19,13 @@ const Title = styled.h1`
 `;
 const Registration = () => {
   const step = useSelector(selectStep);
-  const stepTitle = {
-    1: 'Step 1',
-    2: 'Step 2',
-    3: 'Conformation',
-  };
+  const stepTitle = step === LAST_STEP ? 'Conformation' : `Step ${step}`;
 
   return (
     <Wrapper>
-      <Title>{stepTitle[step]}</Title>
+      <Title>{stepTitle}</Title>
       <FirstStep />
+      <SecondStep />
       <Buttons />
     </Wrapper>
   );

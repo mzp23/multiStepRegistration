@@ -3,3 +3,4 @@ export const invalidSecondNameMessage = 'Second Name should be greater than 2 an
 export const invalidEmailMessage = 'Invalid email address';
 export const invalidPasswordMessage = 'Password should be greater than 5';
 export const invalidConfirmedPasswordMessage = 'Passwords do not match';
+export const invalidZipCodeMessage = 'Enter valid zip code'
