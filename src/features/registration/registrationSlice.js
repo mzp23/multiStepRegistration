@@ -44,11 +44,8 @@ const initialState = {
     value: null,
     isValid: false,
   },
-  consentToProcessingData: {
-    value: false,
-    isValid: false,
-  },
-  registrationStep: 2,
+  consentToProcessingData: false,
+  registrationStep: 1,
 };
 
 const validationMap = {
@@ -80,6 +77,10 @@ export const registrationSlice = createSlice({
         );
       }
     },
+    changeConsentToProcessingData: (state, { payload }) => {
+      state.consentToProcessingData = payload;
+    },
+    reset: state => initialState,
     increaseStep: (state) => {
       if (state.registrationStep >= LAST_STEP) {
         state.registrationStep = LAST_STEP;
@@ -101,6 +102,8 @@ export const {
   increaseStep,
   decreaseStep,
   changeFieldValue,
+  changeConsentToProcessingData,
+  reset,
 } = registrationSlice.actions;
 
 export default registrationSlice.reducer;

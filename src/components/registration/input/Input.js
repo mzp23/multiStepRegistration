@@ -8,6 +8,7 @@ const CustomInput = styled.input`
   border: 1px solid #e5e5ea;
   border-radius: 5px;
   outline: none;
+  width: -webkit-fill-available;
   &:focus {
     border-color: #000;
   }
@@ -22,6 +23,7 @@ const Input = React.memo(
     invalidMessage,
     handleChange,
     value,
+    disabled
   }) => {
     return (
       <>
@@ -35,6 +37,7 @@ const Input = React.memo(
           data-event-off="blur"
           onChange={handleChange}
           value={value}
+          disabled={disabled}
         />
         {!isValid ? (
           <ReactTooltip place="right" type="warning" effect="solid" id={name}>

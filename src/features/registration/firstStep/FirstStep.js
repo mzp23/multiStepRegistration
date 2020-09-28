@@ -21,7 +21,6 @@ const FirstStep = () => {
   const step = useSelector(selectStep);
   const firstStepData = useSelector(selectFirstStepData);
   const dispatch = useDispatch();
-
   const handleChange = useCallback(
     (e) => {
       dispatch(

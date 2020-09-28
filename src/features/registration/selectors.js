@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { isValidConfirmedPassword } from '../../helpers/validation';
 
 export const selectFirstName = ({ registration }) => registration.firstName;
 export const selectSecondName = ({ registration }) => registration.secondName;
@@ -13,17 +14,22 @@ export const selectConsentToProcessingData = ({ registration }) =>
 export const selectSex = ({ registration }) => registration.sex;
 export const selectStep = ({ registration }) => registration.registrationStep;
 export const selectZipCode = ({ registration }) => registration.zipCode;
+export const selectIsPasswordsSame = createSelector(
+  selectConfirmedPassword,
+  selectPassword,
+  (confPass, pass) => isValidConfirmedPassword(confPass.value, pass.value)
+);
 export const selectIsAllFilledOnFirstStep = createSelector(
   selectFirstName,
   selectSecondName,
   selectPassword,
-  selectConfirmedPassword,
+  selectIsPasswordsSame,
   selectEmail,
-  (firstName, secondName, password, confirmedPassword, email) =>
+  (firstName, secondName, password, isPasswordsSame, email) =>
     firstName.isValid &&
     secondName.isValid &&
     password.isValid &&
-    confirmedPassword.isValid &&
+    isPasswordsSame &&
     email.isValid
 );
 export const selectFirstStepData = createSelector(

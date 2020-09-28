@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Buttons from '../../components/registration/buttons/Buttons';
 import { LAST_STEP } from './constants';
 import FirstStep from './firstStep/FirstStep';
+import LastStep from './lastStep/LastStep';
 import SecondStep from './secondStep/SecondStep';
 import { selectStep } from './selectors';
 
@@ -26,6 +27,7 @@ const Registration = () => {
       <Title>{stepTitle}</Title>
       <FirstStep />
       <SecondStep />
+      <LastStep />
       <Buttons />
     </Wrapper>
   );

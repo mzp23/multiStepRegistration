@@ -7,8 +7,12 @@ import {
   LAST_STEP,
   SECOND_STEP,
 } from '../../../features/registration/constants';
-import { increaseStep } from '../../../features/registration/registrationSlice';
 import {
+  increaseStep,
+  reset,
+} from '../../../features/registration/registrationSlice';
+import {
+  selectConsentToProcessingData,
   selectIsAllFilledOnFirstStep,
   selectIsAllFilledOnSecondStep,
 } from '../../../features/registration/selectors';
@@ -17,7 +21,7 @@ const NextButton = ({ step }) => {
   const dispatch = useDispatch();
   const isAllFilledOnFirstPage = useSelector(selectIsAllFilledOnFirstStep);
   const isAllFilledOnSecondPage = useSelector(selectIsAllFilledOnSecondStep);
-
+  const isConsentToProcessingData = useSelector(selectConsentToProcessingData);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
@@ -25,12 +29,23 @@ const NextButton = ({ step }) => {
       setIsButtonDisabled(isAllFilledOnFirstPage);
     } else if (step === SECOND_STEP) {
       setIsButtonDisabled(isAllFilledOnSecondPage);
+    } else if (step === LAST_STEP) {
+      setIsButtonDisabled(isConsentToProcessingData);
     }
-  }, [step, isAllFilledOnFirstPage, isAllFilledOnSecondPage]);
+  }, [
+    step,
+    isAllFilledOnFirstPage,
+    isAllFilledOnSecondPage,
+    isConsentToProcessingData,
+  ]);
 
   const handleNextStep = useCallback(() => {
-    dispatch(increaseStep());
-  }, [dispatch]);
+    if (step !== LAST_STEP) {
+      dispatch(increaseStep());
+    } else {
+      dispatch(reset());
+    }
+  }, [dispatch, step]);
 
   const buttonTitle = step === LAST_STEP ? 'submit' : 'next';
   const buttonType = step === LAST_STEP ? 'submit' : 'button';
