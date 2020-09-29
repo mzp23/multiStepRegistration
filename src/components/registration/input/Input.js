@@ -1,18 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
-import styled from 'styled-components';
-
-const CustomInput = styled.input`
-  padding: 10px 5px;
-  margin-bottom: 25px;
-  border: 1px solid #e5e5ea;
-  border-radius: 5px;
-  outline: none;
-  width: -webkit-fill-available;
-  &:focus {
-    border-color: #000;
-  }
-`;
+import * as Styled from './Input.styled';
 
 const Input = React.memo(
   ({
@@ -27,7 +15,7 @@ const Input = React.memo(
   }) => {
     return (
       <>
-        <CustomInput
+        <Styled.CustomInput
           type={type}
           name={name}
           placeholder={placeholder}

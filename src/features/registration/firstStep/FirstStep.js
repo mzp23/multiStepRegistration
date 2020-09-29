@@ -1,14 +1,11 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FIRST_STEP } from '../constants';
 import { changeFieldValue } from '../registrationSlice';
 import {
-  selectFirstStepData,
-  selectStep,
+  selectFirstStepData
 } from '../selectors';
 import Input from '../../../components/registration/input/Input';
-import RegistrationWrapper from '../../../components/registration/registrationWrapper/RegistrationWrapper';
 import {
   invalidConfirmedPasswordMessage,
   invalidEmailMessage,
@@ -16,9 +13,10 @@ import {
   invalidPasswordMessage,
   invalidSecondNameMessage,
 } from '../validationMessages';
+import * as Styled from '../Registration.styled'
+
 
 const FirstStep = () => {
-  const step = useSelector(selectStep);
   const firstStepData = useSelector(selectFirstStepData);
   const dispatch = useDispatch();
   const handleChange = useCallback(
@@ -30,12 +28,8 @@ const FirstStep = () => {
     [dispatch]
   );
 
-  if (step !== FIRST_STEP) {
-    return null;
-  }
-
   return (
-    <RegistrationWrapper>
+    <Styled.RegistrationWrapper>
       <Input
         type="text"
         name="firstName"
@@ -81,7 +75,7 @@ const FirstStep = () => {
         handleChange={handleChange}
         value={firstStepData.confirmedPassword.value}
       />
-    </RegistrationWrapper>
+    </Styled.RegistrationWrapper>
   );
 };
 

@@ -1,84 +1,65 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Checkbox } from 'rsuite';
-import styled from 'styled-components';
 import Input from '../../../components/registration/input/Input';
-import RegistrationWrapper from '../../../components/registration/registrationWrapper/RegistrationWrapper';
 import formatDate from '../../../helpers/formatDate';
-import { LAST_STEP } from '../constants';
 import { changeConsentToProcessingData } from '../registrationSlice';
-import {
-  selectFirstStepData,
-  selectSecondStepData,
-  selectStep,
-} from '../selectors';
-
-const InputContainer = styled.div`
-  display: flex;
-  align-items: baseline;
-`;
-
-const Label = styled.label`
-  width: 30%;
-`;
+import { selectFirstStepData, selectSecondStepData } from '../selectors';
+import * as Styled from '../Registration.styled';
 
 const LastStep = () => {
-  const step = useSelector(selectStep);
   const firstStepData = useSelector(selectFirstStepData);
   const secondPageData = useSelector(selectSecondStepData);
 
   const dispatch = useDispatch();
-  if (step !== LAST_STEP) {
-    return null;
-  }
 
   return (
-    <RegistrationWrapper>
+    <Styled.RegistrationWrapper>
       <form>
-        <InputContainer>
-          <Label>First Name: </Label>
+        <Styled.InputContainer>
+          <Styled.Label>First Name: </Styled.Label>
           <Input
             value={firstStepData.firstName.value}
             name="firstName"
             disabled={true}
           />
-        </InputContainer>
-        <InputContainer>
-          <Label>Second Name: </Label>
+        </Styled.InputContainer>
+        <Styled.InputContainer>
+          <Styled.Label>Second Name: </Styled.Label>
           <Input
             value={firstStepData.secondName.value}
             name="secondName"
             disabled={true}
           />
-        </InputContainer>
-        <InputContainer>
-          <Label>Email: </Label>
+        </Styled.InputContainer>
+        <Styled.InputContainer>
+          <Styled.Label>Email: </Styled.Label>
           <Input
             value={firstStepData.email.value}
             name="email"
             disabled={true}
           />
-        </InputContainer>
-        <InputContainer>
-          <Label>Date of birth: </Label>
+        </Styled.InputContainer>
+        <Styled.InputContainer>
+          <Styled.Label>Date of birth: </Styled.Label>
           <Input
             value={formatDate(secondPageData.dob.value)}
             name="dob"
             disabled={true}
           />
-        </InputContainer>
-        <InputContainer>
-          <Label>Sex: </Label>
+        </Styled.InputContainer>
+        <Styled.InputContainer>
+          <Styled.Label>Sex: </Styled.Label>
           <Input value={secondPageData.sex.value} name="dob" disabled={true} />
-        </InputContainer>
-        <InputContainer>
-          <Label>Zip Code: </Label>
+        </Styled.InputContainer>
+        <Styled.InputContainer>
+          <Styled.Label>Zip Code: </Styled.Label>
           <Input
             value={secondPageData.zipCode.value}
             name="dob"
             disabled={true}
           />
-        </InputContainer>
+        </Styled.InputContainer>
         <Checkbox
           style={{ display: 'flex', justifyContent: 'center' }}
           onChange={(_, isChecked) =>
@@ -89,7 +70,7 @@ const LastStep = () => {
           I agree to the data processing
         </Checkbox>
       </form>
-    </RegistrationWrapper>
+    </Styled.RegistrationWrapper>
   );
 };
 

@@ -1,35 +1,30 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
 
 import Buttons from '../../components/registration/buttons/Buttons';
-import { LAST_STEP } from './constants';
+import { FIRST_STEP, LAST_STEP, SECOND_STEP } from './constants';
 import FirstStep from './firstStep/FirstStep';
 import LastStep from './lastStep/LastStep';
 import SecondStep from './secondStep/SecondStep';
 import { selectStep } from './selectors';
+import * as Styled from './Registration.styled';
 
-const Wrapper = styled.div`
-  padding-top: 15%;
-  height: 100vh;
-`;
-const Title = styled.h1`
-  color: #a1a1a1;
-  text-align: center;
-  margin-bottom: 10px;
-`;
+const stepsMap = {
+  [FIRST_STEP]: <FirstStep />,
+  [SECOND_STEP]: <SecondStep />,
+  [LAST_STEP]: <LastStep />,
+};
+
 const Registration = () => {
   const step = useSelector(selectStep);
   const stepTitle = step === LAST_STEP ? 'Conformation' : `Step ${step}`;
 
   return (
-    <Wrapper>
-      <Title>{stepTitle}</Title>
-      <FirstStep />
-      <SecondStep />
-      <LastStep />
+    <Styled.Wrapper>
+      <Styled.Title>{stepTitle}</Styled.Title>
+      {stepsMap[step]}
       <Buttons />
-    </Wrapper>
+    </Styled.Wrapper>
   );
 };
 

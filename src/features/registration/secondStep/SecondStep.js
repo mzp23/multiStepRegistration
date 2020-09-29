@@ -2,15 +2,13 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DatePicker } from 'rsuite';
 import Input from '../../../components/registration/input/Input';
-import RegistrationWrapper from '../../../components/registration/registrationWrapper/RegistrationWrapper';
 import Select from '../../../components/registration/select/Select';
-import { SECOND_STEP } from '../constants';
 import { changeFieldValue } from '../registrationSlice';
-import { selectSecondStepData, selectStep } from '../selectors';
+import { selectSecondStepData } from '../selectors';
 import { invalidZipCodeMessage } from '../validationMessages';
+import * as Styled from '../Registration.styled'
 
 const SecondStep = () => {
-  const step = useSelector(selectStep);
   const dispatch = useDispatch(changeFieldValue);
   const secondPageData = useSelector(selectSecondStepData);
   const sexArr = ['Male', 'Female'];
@@ -25,12 +23,9 @@ const SecondStep = () => {
     },
     [dispatch]
   );
-  if (step !== SECOND_STEP) {
-    return null;
-  }
 
   return (
-    <RegistrationWrapper>
+    <Styled.RegistrationWrapper>
       <Input
         type="text"
         placeholder="Enter ZIP code, example: 12345"
@@ -58,7 +53,7 @@ const SecondStep = () => {
         name="dob"
         value={dobValue}
       />
-    </RegistrationWrapper>
+    </Styled.RegistrationWrapper>
   );
 };
 

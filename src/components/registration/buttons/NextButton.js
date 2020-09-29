@@ -15,29 +15,25 @@ import {
   selectConsentToProcessingData,
   selectIsAllFilledOnFirstStep,
   selectIsAllFilledOnSecondStep,
+  selectStep,
 } from '../../../features/registration/selectors';
 
-const NextButton = ({ step }) => {
+const NextButton = () => {
+  const step = useSelector(selectStep);
   const dispatch = useDispatch();
   const isAllFilledOnFirstPage = useSelector(selectIsAllFilledOnFirstStep);
   const isAllFilledOnSecondPage = useSelector(selectIsAllFilledOnSecondStep);
   const isConsentToProcessingData = useSelector(selectConsentToProcessingData);
+  const isDisabledMap = {
+    [FIRST_STEP]: isAllFilledOnFirstPage,
+    [SECOND_STEP]: isAllFilledOnSecondPage,
+    [LAST_STEP]: isConsentToProcessingData,
+  };
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
-    if (step === FIRST_STEP) {
-      setIsButtonDisabled(isAllFilledOnFirstPage);
-    } else if (step === SECOND_STEP) {
-      setIsButtonDisabled(isAllFilledOnSecondPage);
-    } else if (step === LAST_STEP) {
-      setIsButtonDisabled(isConsentToProcessingData);
-    }
-  }, [
-    step,
-    isAllFilledOnFirstPage,
-    isAllFilledOnSecondPage,
-    isConsentToProcessingData,
-  ]);
+    setIsButtonDisabled(isDisabledMap[step]);
+  }, [step, isDisabledMap]);
 
   const handleNextStep = useCallback(() => {
     if (step !== LAST_STEP) {
