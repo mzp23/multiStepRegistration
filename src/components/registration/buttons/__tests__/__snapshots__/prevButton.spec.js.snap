@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PrevButton /> should render PrevButton correct 1`] = `
+<withStyleProps(defaultProps(Button))
+  appearance="default"
+  classPrefix="rs-btn"
+  componentClass="button"
+  onClick={[Function]}
+  ripple={true}
+  type="button"
+>
+  prev
+</withStyleProps(defaultProps(Button))>
+`;

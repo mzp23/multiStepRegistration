@@ -24,16 +24,11 @@ const NextButton = () => {
   const isAllFilledOnFirstPage = useSelector(selectIsAllFilledOnFirstStep);
   const isAllFilledOnSecondPage = useSelector(selectIsAllFilledOnSecondStep);
   const isConsentToProcessingData = useSelector(selectConsentToProcessingData);
-  const isDisabledMap = {
+  const Map = {
     [FIRST_STEP]: isAllFilledOnFirstPage,
     [SECOND_STEP]: isAllFilledOnSecondPage,
     [LAST_STEP]: isConsentToProcessingData,
   };
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-  useEffect(() => {
-    setIsButtonDisabled(isDisabledMap[step]);
-  }, [step, isDisabledMap]);
 
   const handleNextStep = useCallback(() => {
     if (step !== LAST_STEP) {
@@ -55,12 +50,12 @@ const NextButton = () => {
           style={{ margin: '0 5px' }}
           type={buttonType}
           onClick={handleNextStep}
-          disabled={!isButtonDisabled}
+          disabled={!Map[step]}
         >
           {buttonTitle}
         </Button>
       </span>
-      {!isButtonDisabled && (
+      {!Map[step] && (
         <ReactTooltip place="bottom" type="error" effect="solid">
           <span>{tooltipTitle}</span>
         </ReactTooltip>

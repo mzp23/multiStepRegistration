@@ -5,12 +5,12 @@ import { decreaseStep } from '../../../features/registration/registrationSlice';
 
 const PrevButton = () => {
   const dispatch = useDispatch();
-  const handleNextStep = useCallback(() => {
+  const handlePrevStep = useCallback(() => {
     dispatch(decreaseStep());
   }, [dispatch]);
 
   return (
-    <Button type="button" onClick={handleNextStep}>
+    <Button type="button" onClick={handlePrevStep}>
       prev
     </Button>
   );
